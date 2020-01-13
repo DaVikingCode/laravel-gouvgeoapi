@@ -13,7 +13,7 @@ class LaravelGouvGeoApiController extends Controller
         $client = new Client();
         $coords = ['latitude' => 0, 'longitude' => 0];
         $search = $address['numero'] . '+' . $address['voie'] . '+' . $address['commune'];
-        $request = config('gouvgeoapi.api_url_adresse') . 'search/?q=' . $search . '&postcode=' . $address['code_postal'];
+        $request = config('laravelgouvgeoapi.api_url_adresse') . 'search/?q=' . $search . '&postcode=' . $address['code_postal'];
         $response = $client->request('GET', $request);
         $data = json_decode($response->getBody());
         // si adresse trouvée
@@ -30,7 +30,7 @@ class LaravelGouvGeoApiController extends Controller
         $client = new Client();
 
         // Methode 1 : adresses reverve
-        $request = config('gouvgeoapi.api_url_adresse') . 'reverse/?lon='.$coords['longitude'].'&lat='.$coords['latitude'];
+        $request = config('laravelgouvgeoapi.api_url_adresse') . 'reverse/?lon='.$coords['longitude'].'&lat='.$coords['latitude'];
         $response = $client->request('GET', $request);
         $data = json_decode($response->getBody());
 
@@ -67,7 +67,7 @@ class LaravelGouvGeoApiController extends Controller
         else
         {
             // méthode 2 : communes (seulement commune et code postal)
-            $request = config('gouvgeoapi.api_url_geo') . 'communes?fields=nom,codesPostaux&lon='.$coords['longitude'].'&lat='.$coords['latitude'];
+            $request = config('laravelgouvgeoapi.api_url_geo') . 'communes?fields=nom,codesPostaux&lon='.$coords['longitude'].'&lat='.$coords['latitude'];
             $response = $client->request('GET', $request);
             $data = json_decode($response->getBody());
             if(count($data) > 0)
@@ -88,7 +88,7 @@ class LaravelGouvGeoApiController extends Controller
             $coordinates = [];
             $client = new Client();
             $code_insee = $departement->insee_prefecture;
-            $request = config('gouvgeoapi.api_url_geo') . 'communes/' . $code_insee . '/?fields=centre';
+            $request = config('laravelgouvgeoapi.api_url_geo') . 'communes/' . $code_insee . '/?fields=centre';
             $response = $client->request('GET', $request);
             $data = json_decode($response->getBody());
             $coordinates['longitude'] = $data->centre->coordinates[0];
