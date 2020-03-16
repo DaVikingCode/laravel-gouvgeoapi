@@ -8,12 +8,11 @@ use DaVikingCode\LaravelGouvGeoApi\Facades\Departement;
 
 class LaravelGouvGeoApiController extends Controller
 {
-    public static function retrieveCoordinates(array $address)
+    public static function retrieveCoordinates(string $address)
     {
-        $client = new Client();
+        $client = new GuzzleHttp\Client();
         $coords = ['latitude' => 0, 'longitude' => 0];
-        $search = $address['numero'] . '+' . $address['voie'] . '+' . $address['commune'];
-        $request = config('laravelgouvgeoapi.api_url_adresse') . 'search/?q=' . $search . '&postcode=' . $address['code_postal'];
+        $request = 'https://api-adresse.data.gouv.fr/search/?q=' . $address;
         $response = $client->request('GET', $request);
         $data = json_decode($response->getBody());
         // si adresse trouvée
