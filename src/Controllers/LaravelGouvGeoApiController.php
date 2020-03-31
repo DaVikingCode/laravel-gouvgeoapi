@@ -10,7 +10,7 @@ class LaravelGouvGeoApiController extends Controller
 {
     public static function retrieveCoordinates(string $address)
     {
-        $client = new GuzzleHttp\Client();
+        $client = new Client();
         $coords = ['latitude' => 0, 'longitude' => 0];
         $request = 'https://api-adresse.data.gouv.fr/search/?q=' . $address;
         $response = $client->request('GET', $request);
