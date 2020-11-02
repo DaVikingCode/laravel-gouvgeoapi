@@ -12,7 +12,7 @@
     "homepage": "https://github.com/davikingcode/gouvgeoapi",
     "keywords": ["DaVikingCode", "Laravel", "GouvGeoApi"],
     "require": {
-
+        "guzzlehttp/guzzle": "^7.2"
     },
     "require-dev": {
 
